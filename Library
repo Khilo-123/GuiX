@@ -27,6 +27,8 @@ function GuiX:CreateWindow(data)
 	local TabsFrame = Instance.new("Frame")
 	local TabTemplate = Instance.new("Frame")
 	local TabContentList = Instance.new("ScrollingFrame")
+	local UIListLayout = Instance.new("UIListLayout")
+	local TabTitle = Instance.new("TextLabel")
 
 	--Properties:
 
@@ -118,8 +120,27 @@ function GuiX:CreateWindow(data)
 	TabContentList.BackgroundTransparency = 1.000
 	TabContentList.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TabContentList.BorderSizePixel = 0
-	TabContentList.Size = UDim2.new(1, 0, 1, 0)
+	TabContentList.Position = UDim2.new(0, 0, 0.075000003, 0)
+	TabContentList.Size = UDim2.new(1, 0, 0.925000012, 0)
 	TabContentList.ScrollBarThickness = 3
+
+	UIListLayout.Parent = TabContentList
+	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	TabTitle.Name = "TabTitle"
+	TabTitle.Parent = TabTemplate
+	TabTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TabTitle.BackgroundTransparency = 1.000
+	TabTitle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TabTitle.BorderSizePixel = 0
+	TabTitle.Size = UDim2.new(0, 299, 0, 15)
+	TabTitle.Font = Enum.Font.Gotham
+	TabTitle.Text = "Template"
+	TabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TabTitle.TextScaled = true
+	TabTitle.TextSize = 14.000
+	TabTitle.TextWrapped = true
+	TabTitle.TextXAlignment = Enum.TextXAlignment.Left
 	
 	Title.Text = Title_data
 	if Draggable_data then
@@ -141,8 +162,57 @@ function GuiX:CreateWindow(data)
 	end
 end
 
-function getWindow()
+function GuiX:getWindow()
 	return window
+end
+
+function GuiX:CreateTab(data)
+	if window then
+		tabid_data = data.id or data.Id
+		TabTitle_data = data.title or data.Title or "GuiX Tab"
+		Visible_data = data.Visible or data.visible or false
+		
+		if tabid_data then
+			local TabsFrame = window:FindFirstChild("TabsFrame")
+			local newTab = TabsFrame:FindFirstChild("TabTemplate"):Clone()
+			newTab.TabTitle.Text = TabTitle_data
+			newTab.Visible = Visible_data
+			newTab:SetAttribute("id", tabid_data)
+			newTab.Parent = TabsFrame
+		else
+			warn("Couldnt create tab, ID missing.")
+		end
+	end
+end
+
+function GuiX:getTab(data)
+	tabid = data.id or data.Id
+	local TabsFrame = window:FindFirstChild("TabsFrame")
+	for _, tab in pairs(TabsFrame:GetChildren()) do
+		if tab then
+			if tab:IsA("Frame") then
+				if tab:GetAttribute("id") == tabid then
+					return tab
+				end
+			end
+		end
+	end
+end
+
+function GuiX:CreateTabButton(data)
+	buttonid_data = data.id or data.Id
+	text_data = data.Text or data.text
+	if buttonid_data then
+		local ButtonsTabFrame = window:FindFirstChild("TabButtonsFrame")
+		local ButtonsTabFrameList = ButtonsTabFrame:FindFirstChild("ButtonsTabFrame")
+		local newTabBTN = ButtonsTabFrameList:FindFirstChild("TemplateTabButton"):Clone()
+		newTabBTN.Text = text_data
+		newTabBTN:SetAttribute("id", buttonid_data)
+		newTabBTN.Parent = ButtonsTabFrameList
+		newTabBTN.Visible = true
+	else
+		warn("Couldnt create Tab Button, ID missing.")
+	end
 end
 
 return GuiX
