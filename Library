@@ -202,30 +202,34 @@ end
 
 function GuiX:CreateTabButton(data)
 	local wnd = GuiX:getWindow()
-	print("Window:", wnd)
+	if not wnd then
+		warn("GuiX:CreateTabButton — getWindow() returned nil")
+		return
+	end
 
 	local buttonId = data.id or data.Id
 	local buttonText = data.Text or data.text or "Tab"
 
-	print("ID:", buttonId)
-	print("Text:", buttonText)
-
 	if not buttonId then
-		warn("Missing ID")
+		warn("GuiX:CreateTabButton — Missing ID")
 		return
 	end
 
 	local tabButtonsFrame = wnd:FindFirstChild("TabButtonsFrame")
-	print("TabButtonsFrame:", tabButtonsFrame)
+	if not tabButtonsFrame then
+		warn("GuiX:CreateTabButton — TabButtonsFrame not found inside window:", wnd.Name)
+		return
+	end
 
-	local list = tabButtonsFrame and tabButtonsFrame:FindFirstChild("ButtonsTabFrame")
-	print("ButtonsTabFrame:", list)
+	local list = tabButtonsFrame:FindFirstChild("ButtonsTabFrame")
+	if not list then
+		warn("GuiX:CreateTabButton — ButtonsTabFrame not found inside TabButtonsFrame")
+		return
+	end
 
-	local template = list and list:FindFirstChild("TemplateTabButton")
-	print("TemplateTabButton:", template)
-
+	local template = list:FindFirstChild("TemplateTabButton")
 	if not template then
-		warn("TemplateTabButton missing")
+		warn("GuiX:CreateTabButton — TemplateTabButton missing inside ButtonsTabFrame")
 		return
 	end
 
@@ -235,7 +239,6 @@ function GuiX:CreateTabButton(data)
 	newTabBTN.Visible = true
 	newTabBTN.Parent = list
 
-	print("Created:", newTabBTN)
 	return newTabBTN
 end
 
