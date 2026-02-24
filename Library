@@ -221,7 +221,7 @@ function GuiX:CreateTabButton(data)
 		return
 	end
 
-	local list = tabButtonsFrame:FindFirstChild("ButtonsTabFrame")
+	local list = tabButtonsFrame:FindFirstChild("TabButtonsList")
 	if not list then
 		warn("GuiX:CreateTabButton — ButtonsTabFrame not found inside TabButtonsFrame")
 		return
