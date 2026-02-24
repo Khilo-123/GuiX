@@ -1,0 +1,148 @@
+local GuiX = {}
+
+local UIS = game:GetService("UserInputService")
+
+window = nil
+
+function CreateWindow(data)
+	Title_data = data.Title or data.title or "GuiX"
+	Draggable_data = data.Draggable or data.draggable or false
+	PosX_data = data.PosX or data.posX or 0
+	PosY_data = data.PosY or data.posY or 0
+	CloseKey_data = data.CloseKey or data.closeKey or nil
+	Visible_data = data.Visible or data.visible or true
+	-- Gui to Lua
+	-- Version: 3.2
+
+	-- Instances:
+
+	local Window = Instance.new("ScreenGui")
+	local WindowFrame = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local Title = Instance.new("TextLabel")
+	local TabButtonsFrame = Instance.new("Frame")
+	local TabButtonsList = Instance.new("ScrollingFrame")
+	local TemplateTabButton = Instance.new("TextButton")
+	local UICorner_2 = Instance.new("UICorner")
+	local TabsFrame = Instance.new("Frame")
+	local TabTemplate = Instance.new("Frame")
+	local TabContentList = Instance.new("ScrollingFrame")
+
+	--Properties:
+
+	Window.Name = "Window"
+	Window.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	Window.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	WindowFrame.Name = "WindowFrame"
+	WindowFrame.Parent = Window
+	WindowFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	WindowFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	WindowFrame.BorderSizePixel = 0
+	WindowFrame.Position = UDim2.new(0.334437072, 0, 0.256637156, 0)
+	WindowFrame.Size = UDim2.new(0, 399, 0, 220)
+
+	UICorner.Parent = WindowFrame
+
+	Title.Name = "Title"
+	Title.Parent = WindowFrame
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Title.BorderSizePixel = 0
+	Title.Size = UDim2.new(0, 399, 0, 20)
+	Title.Font = Enum.Font.SourceSans
+	Title.Text = "GuiX"
+	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title.TextScaled = true
+	Title.TextSize = 14.000
+	Title.TextWrapped = true
+	Title.TextXAlignment = Enum.TextXAlignment.Left
+
+	TabButtonsFrame.Name = "TabButtonsFrame"
+	TabButtonsFrame.Parent = WindowFrame
+	TabButtonsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	TabButtonsFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TabButtonsFrame.BorderSizePixel = 0
+	TabButtonsFrame.Position = UDim2.new(0, 0, 0.0909090936, 0)
+	TabButtonsFrame.Size = UDim2.new(0, 100, 0, 200)
+
+	TabButtonsList.Name = "TabButtonsList"
+	TabButtonsList.Parent = TabButtonsFrame
+	TabButtonsList.Active = true
+	TabButtonsList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TabButtonsList.BackgroundTransparency = 1.000
+	TabButtonsList.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TabButtonsList.BorderSizePixel = 0
+	TabButtonsList.Size = UDim2.new(1, 0, 1, 0)
+	TabButtonsList.ScrollBarThickness = 2
+	TabButtonsList.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Left
+
+	TemplateTabButton.Name = "TemplateTabButton"
+	TemplateTabButton.Parent = TabButtonsList
+	TemplateTabButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+	TemplateTabButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TemplateTabButton.BorderSizePixel = 0
+	TemplateTabButton.Size = UDim2.new(1, 0, 0, 20)
+	TemplateTabButton.Visible = false
+	TemplateTabButton.Font = Enum.Font.Gotham
+	TemplateTabButton.Text = "Template"
+	TemplateTabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TemplateTabButton.TextScaled = true
+	TemplateTabButton.TextSize = 14.000
+	TemplateTabButton.TextWrapped = true
+
+	UICorner_2.Parent = TemplateTabButton
+
+	TabsFrame.Name = "TabsFrame"
+	TabsFrame.Parent = WindowFrame
+	TabsFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TabsFrame.BackgroundTransparency = 1.000
+	TabsFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TabsFrame.BorderSizePixel = 0
+	TabsFrame.Position = UDim2.new(0.250626564, 0, 0.0909090936, 0)
+	TabsFrame.Size = UDim2.new(0, 299, 0, 200)
+
+	TabTemplate.Name = "TabTemplate"
+	TabTemplate.Parent = TabsFrame
+	TabTemplate.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	TabTemplate.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TabTemplate.BorderSizePixel = 0
+	TabTemplate.Size = UDim2.new(1, 0, 1, 0)
+	TabTemplate.Visible = false
+
+	TabContentList.Name = "TabContentList"
+	TabContentList.Parent = TabTemplate
+	TabContentList.Active = true
+	TabContentList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TabContentList.BackgroundTransparency = 1.000
+	TabContentList.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TabContentList.BorderSizePixel = 0
+	TabContentList.Size = UDim2.new(1, 0, 1, 0)
+	TabContentList.ScrollBarThickness = 3
+	
+	Title.Text = Title_data
+	if Draggable_data then
+		WindowFrame.Draggable = true
+		WindowFrame.Active = true
+		WindowFrame.Selectable = true
+	end
+	WindowFrame.Position = UDim2.new(PosX_data,0,PosY_data,0)
+	WindowFrame.Visible = Visible_data
+	if CloseKey_data then
+		UIS.InputBegan:Connect(function(inp, proc)
+			if proc then
+				return
+			end
+			if inp.KeyCode == CloseKey_data then
+				Window.Enabled = not Window.Enabled
+			end
+		end)
+	end
+end
+
+function getWindow()
+	return window
+end
+
+return GuiX
