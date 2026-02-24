@@ -244,15 +244,27 @@ end
 
 function GuiX:GetButton(data)
 	local id = data.id or data.Id
-	for _, btn in pairs(window:GetDescendant()) do
-		if btn then
-			if btn:IsA("TextButton") or btn:IsA("ImageButton") then
-				if btn:GetAttribute("id") == id then
-					return btn
-				end
+	if not id then
+		warn("GuiX:GetButton — Missing ID")
+		return nil
+	end
+
+	local window = GuiX:getWindow()
+	if not window then
+		warn("GuiX:GetButton — No window found")
+		return nil
+	end
+
+	for _, btn in ipairs(window:GetDescendants()) do
+		if btn:IsA("TextButton") or btn:IsA("ImageButton") then
+			if btn:GetAttribute("id") == id then
+				return btn
 			end
 		end
 	end
+
+	warn("GuiX:GetButton — No button found with id:", id)
+	return nil
 end
 
 function GuiX:ButtonClicked(button, callback)
