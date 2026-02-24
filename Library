@@ -161,6 +161,7 @@ function GuiX:CreateWindow(data)
 		end)
 	end
 	window = WindowFrame
+	task.wait(0.1)
 end
 
 function GuiX:getWindow()
@@ -240,6 +241,12 @@ function GuiX:CreateTabButton(data)
 	newTabBTN.Parent = list
 
 	return newTabBTN
+end
+
+function GuiX:ButtonClicked(button, callback)
+	button.MouseButton1Click:Connect(function()
+		callback(button)
+	end)
 end
 
 return GuiX
