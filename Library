@@ -273,7 +273,8 @@ end
 
 function GuiX:OpenTab(data)
 	tabid = data.id or data.Id
-	for _, tab in pairs(window:GetDescendants()) do
+	local TabsFrame = window:FindFirstChild("TabsFrame")
+	for _, tab in pairs(TabsFrame:GetDescendants()) do
 		if tab then
 			if tab:IsA("Frame") then
 				if tab:GetAttribute("id") == tabid then
