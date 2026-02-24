@@ -160,6 +160,7 @@ function GuiX:CreateWindow(data)
 			end
 		end)
 	end
+	window = WindowFrame
 end
 
 function GuiX:getWindow()
