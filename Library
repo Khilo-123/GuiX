@@ -202,19 +202,23 @@ end
 
 function GuiX:CreateTabButton(data)
 	local wnd = GuiX:getWindow()
-		buttonid_data = data.id or data.Id
-		text_data = data.Text or data.text
-		if buttonid_data then
+	buttonid_data = data.id or data.Id
+	text_data = data.Text or data.text
+	if buttonid_data then
 		local ButtonsTabFrame = wnd:FindFirstChild("TabButtonsFrame")
+		if ButtonsTabFrame then
 			local ButtonsTabFrameList = ButtonsTabFrame:FindFirstChild("ButtonsTabFrame")
-			local newTabBTN = ButtonsTabFrameList:FindFirstChild("TemplateTabButton"):Clone()
-			newTabBTN.Text = text_data
-			newTabBTN:SetAttribute("id", buttonid_data)
-			newTabBTN.Parent = ButtonsTabFrameList
-			newTabBTN.Visible = true
-		else
-			warn("Couldnt create Tab Button, ID missing.")
+			if ButtonsTabFrameList then
+				local newTabBTN = ButtonsTabFrameList:FindFirstChild("TemplateTabButton"):Clone()
+				newTabBTN.Text = text_data
+				newTabBTN:SetAttribute("id", buttonid_data)
+				newTabBTN.Parent = ButtonsTabFrameList
+				newTabBTN.Visible = true
+			end
 		end
+	else
+		warn("Couldnt create Tab Button, ID missing.")
+	end
 end
 
 return GuiX
