@@ -4,7 +4,7 @@ local UIS = game:GetService("UserInputService")
 
 window = nil
 
-function CreateWindow(data)
+function GuiX:CreateWindow(data)
 	Title_data = data.Title or data.title or "GuiX"
 	Draggable_data = data.Draggable or data.draggable or false
 	PosX_data = data.PosX or data.posX or 0
